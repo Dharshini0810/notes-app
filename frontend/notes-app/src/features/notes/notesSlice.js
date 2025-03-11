@@ -1,6 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
 
+require('dotenv').config()
+
+const BACKEND_URL = process.env.BACKEND_URL;
+
 // Thunks for async operations
 
 // Get all notes
@@ -8,7 +12,7 @@ export const getNotes = createAsyncThunk(
   'notes/getNotes', 
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("http://localhost:5000/api/notes");
+      const response = await axios.get(`${BACKEND_URL}/api/notes`);
       console.log(response.data)
       return response.data;
     } catch (error) {
@@ -23,7 +27,7 @@ export const getNote = createAsyncThunk(
   'notes/getNote',
   async (noteId, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/notes/${noteId}`);
+      const response = await axios.get(`${BACKEND_URL}/api/notes/${noteId}`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -36,7 +40,7 @@ export const createNote = createAsyncThunk(
   'notes/createNote',
   async (notesData, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://localhost:5000/api/notes", notesData);
+      const response = await axios.post(`${BACKEND_URL}/api/notes`, notesData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -50,7 +54,7 @@ export const updateNote = createAsyncThunk(
   async (notesData, { rejectWithValue }) => {
     console.log(notesData.noteId)
     try {
-      const response = await axios.put(`http://localhost:5000/api/notes/${notesData.noteId}`, notesData);
+      const response = await axios.put(`${BACKEND_URL}/api/notes/${notesData.noteId}`, notesData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -63,7 +67,7 @@ export const deleteNote = createAsyncThunk(
   'notes/deleteNote',
   async (noteId, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/api/notes/${noteId}`);
+      const response = await axios.delete(`${BACKEND_URL}/api/notes/${noteId}`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
