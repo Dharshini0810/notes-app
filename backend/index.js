@@ -17,6 +17,10 @@ app.use(
 
 dbConnect()
 
+app.get("/", (req, res) => {
+    res.send("Backend is running!");
+});
+
 app.use('/api/user',require('./routes/userRoutes'))
 app.use('/api/notes',require('./routes/notesRoutes'))
 app.use(errorHandler)
