@@ -1,9 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
 
-require('dotenv').config()
-
-const BACKEND_URL = process.env.BACKEND_URL;
+const BACKEND_URL =  import.meta.env.VITE_BACKEND_URL;
 
 // Thunks for async operations
 
